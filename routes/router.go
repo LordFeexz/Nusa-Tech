@@ -11,9 +11,13 @@ func Router() {
 
 	m.Connect()
 
+	r.Use(gin.Recovery())
+
 	r.GET("/users", c.ReadData)
 
 	r.GET("/users/:id", c.ReadDataById)
+
+	r.POST("/register", c.Register)
 
 	r.Run()
 }

@@ -34,3 +34,16 @@ func ReadDataById(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"User": user})
 }
+
+func Register(c *gin.Context) {
+	var user m.User
+
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	m.Db.Create(&user)
+
+	c.JSON(http.StatusCreated, gin.H{"message": user})
+}
