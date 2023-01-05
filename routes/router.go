@@ -13,5 +13,7 @@ func Router() {
 
 	r.GET("/users", c.ReadData)
 
+	r.GET("/users/:id", c.ReadDataById)
+
 	r.Run()
 }
