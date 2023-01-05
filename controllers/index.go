@@ -5,6 +5,7 @@ import (
 
 	m "github.com/LordFeexz/Nusa-Tech/models"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -42,6 +43,15 @@ func Register(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+		return
+	}
+
+	user.Password = string(hashedPassword)
 
 	m.Db.Create(&user)
 
