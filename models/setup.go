@@ -18,7 +18,7 @@ func Connect() {
 		fmt.Println("success connect")
 	}
 
-	database.AutoMigrate(&User{})
+	database.AutoMigrate(&User{}, &Currency{}, &Pin{}, &Balance{})
 
 	Db = database
 }
