@@ -19,5 +19,7 @@ func Router() {
 
 	r.POST("/register", c.Register)
 
+	r.POST("/login", c.Login)
+
 	r.Run()
 }
