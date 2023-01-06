@@ -13,7 +13,7 @@ import (
 func ReadData(c *gin.Context) {
 	var users []m.User
 
-	m.Db.Find(&users)
+	m.Db.Preload("balances").Preload("balances.Currency").Find(&users)
 
 	c.JSON(http.StatusOK, gin.H{"Users": users})
 }
